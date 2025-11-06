@@ -1,6 +1,6 @@
 {
   "name": "chinese-zodiac-plus",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "description": "Accurate Chinese zodiac calculation using lunar calendar (correct for January/February birthdays).",

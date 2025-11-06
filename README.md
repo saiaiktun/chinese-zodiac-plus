@@ -52,17 +52,15 @@ console.log(new ChineseZodiac(1996, 2, 20).getZodiac());
 ## Get Full Zodiac Details
 
 ```js
-const z = new ChineseZodiac(1996, 2, 20);
-console.log(z.getZodiacDetails());
+const cz = new ChineseZodiac(1996, 2, 20);
+console.log(cz.getZodiacDetails());
 ```
 
 **Returns:**
 
 ```json
 {
-  "year": 1996,
-  "month": 2,
-  "day": 20,
+  "date": "1996-02-20",
   "zodiacAnimal": "Rat",
   "yinYang": "Yang",
   "element": "Fire",
@@ -73,11 +71,12 @@ console.log(z.getZodiacDetails());
 
 | Field           | Meaning                              | Example             |
 | --------------- | ------------------------------------ | ------------------- |
+| `date`         | The exact date you provided (YYYY-MM-DD) | `1996-02-20`   |
 | `zodiacAnimal`  | The 12-year animal cycle             | Rat, Ox, Tiger, ... |
-| `heavenlyStem`  | 天干 (10-cycle)                        | 丙                   |
-| `earthlyBranch` | 地支 (12-cycle)                        | 子                   |
 | `yinYang`       | 陰陽 (based on stem)                   | Yang                |
 | `element`       | 五行 (Wood, Fire, Earth, Metal, Water) | Fire                |
+| `heavenlyStem`  | 天干 (10-cycle)                        | 丙                   |
+| `earthlyBranch` | 地支 (12-cycle)                        | 子                   |
 
 ---
 

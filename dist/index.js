@@ -1,4 +1,4 @@
-const chinese_new_year_dates = [
+const chineseNewYearDates = [
   "1900-01-31","1901-02-19","1902-02-08","1903-01-29","1904-02-16","1905-02-04","1906-01-25","1907-02-13","1908-02-02","1909-01-22","1910-02-10","1911-01-30",
   "1912-02-18","1913-02-06","1914-01-26","1915-02-14","1916-02-03","1917-01-23","1918-02-11","1919-02-01","1920-02-20","1921-02-08","1922-01-28","1923-02-16",
   "1924-02-05","1925-01-24","1926-02-13","1927-02-02","1928-01-23","1929-02-10","1930-01-29","1931-02-17","1932-02-06","1933-01-26","1934-02-14","1935-02-04",
@@ -13,11 +13,7 @@ const chinese_new_year_dates = [
   "2032-02-11","2033-01-31","2034-02-19","2035-02-08","2036-01-28","2037-02-15","2038-02-04","2039-01-24","2040-02-12",
 ];
 
-const zodiacAnimals = [
-  "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
-  "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
-];
-
+const zodiacAnimals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
 const stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
 const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
 
@@ -45,6 +41,7 @@ function getYinYang(stem) {
   return stems.indexOf(stem) % 2 === 0 ? "Yang" : "Yin";
 }
 
+// Main Class
 class ChineseZodiac {
   constructor(year, month, day) {
     if (typeof year !== "number" || typeof month !== "number" || typeof day !== "number") {
@@ -62,7 +59,7 @@ class ChineseZodiac {
       throw new Error("Year out of supported range (1900-2040).");
     }
 
-    const cnyStr = chinese_new_year_dates[year - 1900];
+    const cnyStr = chineseNewYearDates[year - 1900];
     const { y: cY, m: cM, d: cD } = parseYMD(cnyStr);
 
     const dateNum = ymdToNumber(year, month, day);
@@ -78,7 +75,7 @@ class ChineseZodiac {
   getZodiacDetails() {
     const { year, month, day } = this;
 
-    const cnyStr = chinese_new_year_dates[year - 1900];
+    const cnyStr = chineseNewYearDates[year - 1900];
     const { y: cY, m: cM, d: cD } = parseYMD(cnyStr);
 
     const cnyNum = ymdToNumber(cY, cM, cD);
@@ -87,15 +84,14 @@ class ChineseZodiac {
     let zodiacYear = year;
     if (dateNum < cnyNum) zodiacYear--;
 
+    const date = `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     const zodiacAnimal = zodiacAnimals[(zodiacYear - 1900) % 12];
     const offset = zodiacYear - 1984;
     const stem = stems[(offset % 10 + 10) % 10];
     const branch = branches[(offset % 12 + 12) % 12];
 
     return {
-      year: year,
-      month: month,
-      day: day,
+      date: date,
       zodiacAnimal: zodiacAnimal,
       yinYang: getYinYang(stem),
       element: getElement(stem),

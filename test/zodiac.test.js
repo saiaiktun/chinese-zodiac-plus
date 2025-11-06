@@ -24,9 +24,7 @@ describe("ChineseZodiac", () => {
 
     expect(details1).toMatchObject(
       {
-        year: 1996,
-        month: 2,
-        day: 18,
+        date: "1996-02-18",
         zodiacAnimal: "Pig",
         yinYang: "Yin",
         element: "Wood",
@@ -37,9 +35,7 @@ describe("ChineseZodiac", () => {
 
     expect(details2).toMatchObject(
       {
-        year: 1996,
-        month: 2,
-        day: 19,
+        date: "1996-02-19",
         zodiacAnimal: "Rat",
         yinYang: "Yang",
         element: "Fire",
