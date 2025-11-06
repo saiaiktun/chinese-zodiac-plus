@@ -13,13 +13,16 @@ const chinese_new_year_dates = [
   "2032-02-11","2033-01-31","2034-02-19","2035-02-08","2036-01-28","2037-02-15","2038-02-04","2039-01-24","2040-02-12",
 ];
 
-const zodiac = [
+const zodiacAnimals = [
   "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
   "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
 ];
 
+const stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+
+
 function ymdToNumber(y, m, d) {
-  // ensure numbers
   return Number(String(y).padStart(4, "0") + String(m).padStart(2, "0") + String(d).padStart(2, "0"));
 }
 
@@ -27,38 +30,80 @@ function parseYMD(str) {
   const [y, m, d] = str.split("-").map(Number);
   return { y, m, d };
 }
-
-function getZodiac(year, month, day) {
-  if (typeof year !== "number" || typeof month !== "number" || typeof day !== "number") {
-    throw new Error("Invalid arguments. Use numbers: getZodiac(year, month, day).");
-  }
-
-  if (year < 1900 || year > 2040) {
-    throw new Error("Year out of supported range (1900-2040).");
-  }
-
-  // parse CNY for that year (we have entries 1900..2040)
-  const cnyStr = chinese_new_year_dates[year - 1900];
-  if (!cnyStr) {
-    throw new Error("Chinese New Year date not available for year " + year);
-  }
-  const { y: cnyY, m: cnyM, d: cnyD } = parseYMD(cnyStr);
-
-  const birthdayNum = ymdToNumber(year, month, day);
-  const cnyNum = ymdToNumber(cnyY, cnyM, cnyD);
-
-  let zodiacYear = year;
-  if (birthdayNum < cnyNum) {
-    zodiacYear = year - 1;
-  }
-
-  if (zodiacYear < 1900) {
-    throw new Error("Resulting zodiac year is out of supported range (before 1900).");
-  }
-
-  const index = (zodiacYear - 1900) % 12;
-  // JS % can be negative if zodiacYear < 1900 but we already guarded
-  return zodiac[index];
+function getElement(stem) {
+  let element = "";
+  if (["甲", "乙"].includes(stem)) element = "Wood";
+  else if (["丙", "丁"].includes(stem)) element = "Fire";
+  else if (["戊", "己"].includes(stem)) element = "Earth";
+  else if (["庚", "辛"].includes(stem)) element = "Metal";
+  else if (["壬", "癸"].includes(stem)) element = "Water";
+  else element = "Unknown"
+  return element; 
 }
 
-module.exports = { getZodiac };
+function getYinYang(stem) {
+  return stems.indexOf(stem) % 2 === 0 ? "Yang" : "Yin";
+}
+
+class ChineseZodiac {
+  constructor(year, month, day) {
+    if (typeof year !== "number" || typeof month !== "number" || typeof day !== "number") {
+      throw new Error("Invalid arguments. Use: new ChineseZodiac(year, month, day)");
+    }
+    this.year = year;
+    this.month = month;
+    this.day = day;
+  }
+
+  getZodiac() {
+    const { year, month, day } = this;
+
+    if (year < 1900 || year > 2040) {
+      throw new Error("Year out of supported range (1900-2040).");
+    }
+
+    const cnyStr = chinese_new_year_dates[year - 1900];
+    const { y: cY, m: cM, d: cD } = parseYMD(cnyStr);
+
+    const dateNum = ymdToNumber(year, month, day);
+    const cnyNum = ymdToNumber(cY, cM, cD);
+
+    let zodiacYear = year;
+    if (dateNum < cnyNum) zodiacYear--;
+
+    const index = (zodiacYear - 1900) % 12;
+    return zodiacAnimals[index];
+  }
+
+  getZodiacDetails() {
+    const { year, month, day } = this;
+
+    const cnyStr = chinese_new_year_dates[year - 1900];
+    const { y: cY, m: cM, d: cD } = parseYMD(cnyStr);
+
+    const cnyNum = ymdToNumber(cY, cM, cD);
+    const dateNum = ymdToNumber(year, month, day);
+
+    let zodiacYear = year;
+    if (dateNum < cnyNum) zodiacYear--;
+
+    const zodiacAnimal = zodiacAnimals[(zodiacYear - 1900) % 12];
+    const offset = zodiacYear - 1984;
+    const stem = stems[(offset % 10 + 10) % 10];
+    const branch = branches[(offset % 12 + 12) % 12];
+
+    return {
+      year: year,
+      month: month,
+      day: day,
+      zodiacAnimal: zodiacAnimal,
+      yinYang: getYinYang(stem),
+      element: getElement(stem),
+      heavenlyStem: stem,
+      earthlyBranch: branch
+    };
+  }
+
+}
+
+module.exports = { ChineseZodiac };

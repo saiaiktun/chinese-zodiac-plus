@@ -1,6 +1,6 @@
 {
   "name": "chinese-zodiac-plus",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "description": "Accurate Chinese zodiac calculation using lunar calendar (correct for January/February birthdays).",
@@ -23,6 +23,9 @@
   "author": "Sai Aik Tun",
   "license": "MIT",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
   }
 }
