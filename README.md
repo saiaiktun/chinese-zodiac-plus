@@ -10,7 +10,7 @@ For example:
 | 1996-02-18 | Pig | Before Chinese New Year (1996-02-19) |
 | 1996-02-19 | Rat | On/after Chinese New Year |
 
-This library uses verified Chinese New Year dates from **1900 to 2030**.
+This library uses verified Chinese New Year dates from **1900 to 2040**.
 
 ---
 
@@ -78,7 +78,7 @@ A string representing the zodiac animal:
 If the year is **out of supported range**:
 
 ```
-Error: Year out of supported range (1900–2030).
+Error: Year out of supported range (1900–2040).
 ```
 
 ---
@@ -97,7 +97,7 @@ Error: Year out of supported range (1900–2030).
 
 | From | To   |
 | ---- | ---- |
-| 1900 | 2030 |
+| 1900 | 2040 |
 
 Beyond this range, return error (to avoid misleading results).
 

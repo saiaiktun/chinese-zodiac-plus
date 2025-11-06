@@ -35,15 +35,15 @@ assert.throws(
 );
 
 assert.throws(
-  () => getZodiac(1800, 5, 5),
+  () => getZodiac(1899, 5, 5),
   /Year out of supported range/,
   "Should throw for unsupported year < 1900"
 );
 
 assert.throws(
-  () => getZodiac(3000, 5, 5),
+  () => getZodiac(2041, 5, 5),
   /Year out of supported range/,
-  "Should throw for unsupported year > 2030"
+  "Should throw for unsupported year > 2040"
 );
 
 console.log("✅ All tests passed!");
