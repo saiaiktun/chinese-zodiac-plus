@@ -1,0 +1,28 @@
+{
+  "name": "chinese-zodiac-plus",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "description": "Accurate Chinese zodiac calculation using lunar calendar (correct for January/February birthdays).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saiaiktun/chinese-zodiac-plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saiaiktun/chinese-zodiac-plus/issues"
+  },
+  "homepage": "https://github.com/saiaiktun/chinese-zodiac-plus#readme",
+  "keywords": [
+    "chinese zodiac",
+    "shengxiao",
+    "lunar calendar",
+    "birthdate zodiac",
+    "astrology",
+    "生肖"
+  ],
+  "author": "Sai Aik Tun",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test/test.js"
+  }
+}
